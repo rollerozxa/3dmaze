@@ -132,4 +132,4 @@ local function cleanup(width, height)
 	vm:write_to_map(true)
 end
 
-laby_register_style("3dmaze","test", map_function, cleanup)
+laby_register_style("3dmaze","cave", map_function, cleanup)
