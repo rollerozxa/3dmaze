@@ -1,16 +1,16 @@
 -- Node Registrations
 
-minetest.register_node("3dmaze:brick_wall", {
+core.register_node("3dmaze:brick_wall", {
 	description = "brick wall",
 	tiles = {"3dmaze_brick_wall.png"},
 	light_source = 12,
 })
-minetest.register_node("3dmaze:wood_floor", {
+core.register_node("3dmaze:wood_floor", {
 	description = "wood floor",
 	tiles = {"3dmaze_wood_floor.png"},
 	light_source = 12,
 })
-minetest.register_node("3dmaze:brick_ceiling", {
+core.register_node("3dmaze:brick_ceiling", {
 	description = "brick ceiling",
 	drawtype = "allfaces",
 	tiles = {"3dmaze_brick_ceiling.png"},
@@ -23,18 +23,18 @@ local function map_function(maze, player)
 	height = loc_maze.height
 
 	--Copy to the map
-	local vm         = minetest.get_voxel_manip()
+	local vm         = core.get_voxel_manip()
 	local emin, emax = vm:read_from_map({x=0,y=0,z=0}, {x=height+1,y=4,z=width+1})
 	local data = vm:get_data()
 	local a = VoxelArea:new{
 		MinEdge = emin,
 		MaxEdge = emax
 	}
-	local ground   = minetest.get_content_id("3dmaze:wood_floor")
-	local wall     = minetest.get_content_id("3dmaze:brick_wall")
-	local ceil     = minetest.get_content_id("3dmaze:brick_ceiling")
-	local invisble = minetest.get_content_id("game:inv")
-	local air      = minetest.get_content_id("air")
+	local ground   = core.get_content_id("3dmaze:wood_floor")
+	local wall     = core.get_content_id("3dmaze:brick_wall")
+	local ceil     = core.get_content_id("3dmaze:brick_ceiling")
+	local invisble = core.get_content_id("game:inv")
+	local air      = core.get_content_id("air")
 
 	--Set up the level itself
 	for z=1, width do --z
@@ -90,14 +90,14 @@ end
 
 local function cleanup(width, height)
 	--Copy to the map
-	local vm         = minetest.get_voxel_manip()
+	local vm         = core.get_voxel_manip()
 	local emin, emax = vm:read_from_map({x=0,y=0,z=0}, {x=height*2+1,y=4,z=width*2+1})
 	local data = vm:get_data()
 	local a = VoxelArea:new{
 		MinEdge = emin,
 		MaxEdge = emax
 	}
-	local air = minetest.get_content_id("air")
+	local air = core.get_content_id("air")
 
 	--zero it out
 	for z=0, width*2+1 do --z
